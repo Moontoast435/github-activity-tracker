@@ -25,9 +25,23 @@ while(program_active):
             continue
 
         json = req.json()
-        
 
-        program_active = False
+        for event in json:
+            id = event["id"]
+            type = event["type"]
+
+            actor_login = event["actor"]["login"]
+            actor_url = event["actor"]["url"]
+
+            repo_name = event["repo"]["name"]
+
+            created_at = event["created_at"]
+            
+            print(f'Event ID: {id} \n Event Type: {type} \n Actor Login: {actor_login} \n Actor URL: {actor_url} \n Repo Name: {repo_name} \n Created At: {created_at} ')
+
+
+
+        # program_active = False
     except:
         print("could not get github activity")
 # TODO fetch github user activity using the username. Within try except, handle non-existent user gracefully
