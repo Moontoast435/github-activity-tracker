@@ -11,11 +11,21 @@ while(program_active):
 
     try:
         req = requests.get(github_api_url + username_input + '/events')
-        req.headers["content-type"] = 'application/json; charset=utf8'
-        req.encoding = 'utf-8'
+
+        if (req.status_code == '403'):
+            print("403: Forbidden")
+            continue
+
+        if (req.status_code == '503'):
+            print("503: Service unavailable")
+            continue
+
+        if (req.status_code == '304'):
+            print("304: Not modified")
+            continue
 
         json = req.json()
-        print(json)
+        
 
         program_active = False
     except:
